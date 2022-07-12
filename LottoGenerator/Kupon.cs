@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace LottoGenerator {
     public class Kupon {
 
-        List<string> LottoRaekke    = new List<string>();
-        List<string> JokerRakke     = new List<string>();
-
-        bool MedJoker { get; set; }
-        DateTime Dato { get; set; }
+        public List<string> LottoRaekke = new List<string>();
+        public List<string> JokerRakke = new List<string>();
+        public bool MedJoker { get; set; }
+        public DateTime Dato { get; set; }
 
         public Kupon(bool medjoker) {
             this.MedJoker = medjoker;
@@ -26,40 +25,54 @@ namespace LottoGenerator {
 
         private void LavJokerRaekker() {
             if (this.MedJoker)
-            {
-            int hoejesteJokerTal = SpilleRegler.HoejesteJokerTal;
-            int jokerRakker = SpilleRegler.JokerRakker;
-            LavTalRaekke(hoejesteJokerTal, jokerRakker);
-            }
+                JokerRakke = LavTalRaekke(SpilleRegler.HoejesteJokerTal, SpilleRegler.JokerRakker);
         }
 
         private void LavLottoRaekker() {
-            int hoejesteLottoTal = SpilleRegler.HoejesteLottoTal;
-            int lottoRaekker = SpilleRegler.LottoRaekker;
-            LavTalRaekke(hoejesteLottoTal, lottoRaekker);            
+            LottoRaekke = LavTalRaekke(SpilleRegler.HoejesteLottoTal, SpilleRegler.LottoRaekker);
         }
 
-        private void LavTalRaekke(int hoejsteTal, int antalRaekker) {
-            for (int i = 0; i < antalRaekker; i++)
+        private List<string> LavTalRaekke(int hoejsteTal, int antalRaekker) {
+            List<string> result = new List<string>();
+            for (int i = 0; i < antalRaekker; )
             {
-                int[] raekkeTal = new int[SpilleRegler.RaekkeLaenge];
-                for (int j = 0; j < raekkeTal.Length; j++)
+                while (i < antalRaekker)
                 {
-                    raekkeTal[j] = HentRandomTal(hoejsteTal);
-                    while (raekkeTal.Contains(raekkeTal[j]))
+                    int[] raekkeTal = new int[SpilleRegler.RaekkeLaenge];
+                    int j = 0;
+                    while (j < raekkeTal.Length)
                     {
-                        raekkeTal[j] = HentRandomTal(hoejsteTal);
+                        int temp = HentRandomTal(hoejsteTal);
+                        bool alreadyExist = false;
+                        foreach (int item in raekkeTal)
+                        {
+                            if (item == temp)
+                            {
+                                alreadyExist = true;
+                                break;
+                            }
+                        }
+                        if (alreadyExist)
+                            continue;
+
+                        raekkeTal[j] = temp;
+                        j++;
                     }
                     Array.Sort(raekkeTal);
-                    // lav det om til en string række og derefter udform LavLotto  LavJoker så  rækkerner gemmes på de rigtige listProperties
-                    // metoden skal måske laves om til at retunere en List<string> som så smides på propertien?
+                    string faerdigRakke = string.Join(" ", raekkeTal);
+                    if (result.Contains(faerdigRakke))
+                    {
+                        continue;
+                    }
+                    result.Add(faerdigRakke);
+                    i++;
                 }
             }
+            return result;
         }
 
         private int HentRandomTal(int hoejsteTal) {
             return SpilleRegler.random.Next(1, hoejsteTal);
         }
-
     }
 }

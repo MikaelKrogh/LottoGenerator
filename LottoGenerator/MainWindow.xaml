@@ -7,6 +7,49 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="LavKuponKnap"
+                Content="Lav Kupon"
+                Grid.Column="1"
+                Click="LavKuponKnap_Click">
+        </Button>
+
+        <ListView Grid.Column="3"
+                  Grid.ColumnSpan="3"
+                  Grid.RowSpan="4"
+                  ItemsSource="{Binding enKupon}"
+                  BorderBrush="Black"
+                  BorderThickness="2"
+                  Name="Listview">
+            <ListView.View>
+                <GridView x:Name="tester">
+                    <GridViewColumn Header="LottoRaekker"
+                                    DisplayMemberBinding="{Binding Path=LottoRaekke}"/>
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
+        <TextBlock Name="txtblock">
+            
+        </TextBlock>
+        
 
     </Grid>
 </Window>
