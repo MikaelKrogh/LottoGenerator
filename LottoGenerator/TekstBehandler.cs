@@ -11,7 +11,7 @@ namespace LottoGenerator {
         public static StringBuilder Linjebehandling(Kupon kupon) {
             StringBuilder builder = new StringBuilder();
             builder.Append("*****************\n");
-            builder.Append("Lotto Uge 28");
+            builder.Append("Lotto Uge 28 ");
             builder.Append($"{kupon.Dato.ToShortDateString()}\n");
             builder.Append("\n");
             for (int i = 0; i < kupon.LottoRaekke.Count; i++)
