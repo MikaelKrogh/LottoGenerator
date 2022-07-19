@@ -13,10 +13,7 @@ namespace LottoGenerator {
         public MainWindow() {
             InitializeComponent();
             this.DataContext = this;
-            tilfoej();
-            Listview.Items.Refresh();
-            
-
+            tilfoej();     
         }
         ObservableCollection<Kupon> enKupon { get; set; } = new ObservableCollection<Kupon>();
         //evt get set ved fejl
@@ -35,6 +32,7 @@ namespace LottoGenerator {
             {
                 StringBuilder tekstTilFil = TekstBehandler.Linjebehandling(enKupon[i]);
                 File.WriteAllText($@"C:\Lottotekst\lottoKupon{i.ToString()}.txt", tekstTilFil.ToString());
+                TilfoejTilBoks(tekstTilFil);
 
             }
             
@@ -50,6 +48,10 @@ namespace LottoGenerator {
             enKupon.Add(kupon3);
            
 
+        }
+
+        private void TilfoejTilBoks(StringBuilder builder) {
+            ResultBx.Text += builder.ToString();
         }
     }
 }

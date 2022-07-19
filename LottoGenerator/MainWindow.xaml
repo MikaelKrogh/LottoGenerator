@@ -30,25 +30,16 @@
                 Grid.Column="1"
                 Click="LavKuponKnap_Click">
         </Button>
-
-        <ListView Grid.Column="3"
-                  Grid.ColumnSpan="3"
-                  Grid.RowSpan="4"
-                  ItemsSource="{Binding enKupon}"
-                  BorderBrush="Black"
-                  BorderThickness="2"
-                  Name="Listview">
-            <ListView.View>
-                <GridView x:Name="tester">
-                    <GridViewColumn Header="LottoRaekker"
-                                    DisplayMemberBinding="{Binding Path=LottoRaekke}"/>
-                </GridView>
-            </ListView.View>
-            
-        </ListView>
-        <TextBlock Name="txtblock">
+        <TextBlock TextWrapping="Wrap" 
+                   ScrollViewer.CanContentScroll="True"
+                   Grid.Column="3"
+                   Grid.ColumnSpan="4"
+                   Grid.Row="0"
+                   Grid.RowSpan="5"
+                   Name="ResultBx">
             
         </TextBlock>
+
         
 
     </Grid>
